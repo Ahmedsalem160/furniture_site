@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+define('PAGINATION_COUNT','9');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
-Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
+//Route::view('/product','admin.product.create');
+
+//Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
+
+
+
+//
+Route::view('/index','site.list');
+Route::view('/home','site.home');
+Route::view('/about','site.about');
+Route::view('/contact','site.contact');
+

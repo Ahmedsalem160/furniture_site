@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminLogin;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -29,9 +31,20 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function login()
     {
-        //
+        return view('admin.auth.login');
+    }
+
+    public function logged(AdminLogin $request)
+    {
+        $pass = $request->input('password');$email=$request->input('email');
+        if (Auth::guard('admin')->attempt(['email'=>$email, 'password'=>$pass])){
+
+           return redirect()->route('category-create');
+        }
+
+        return redirect()->back()->withInput($request->only('email'));
     }
 
     /**

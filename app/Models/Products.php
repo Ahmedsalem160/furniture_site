@@ -15,14 +15,14 @@ class Products extends Model
         'category_id',
         'purchase_price',
         'sale_price',
-        'stock',
+        'stock',// the number in the store
         'subCategory_id'
     ];
     public function sub_categroy(){
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo('App\Models\SubCategory','subCategory_id');
     }
     public function orders(){
-        return $this->belongsToMany(Order::class,'product_order');
+        return $this->belongsToMany('App\Models\Order','product_order');
     }
 }
 

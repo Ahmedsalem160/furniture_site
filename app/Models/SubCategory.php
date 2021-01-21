@@ -15,6 +15,10 @@ class SubCategory extends Model
         'category_id'
     ];
     public function category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo('App\Models\Category','category_id');
+    }
+
+    public function products(){
+        return $this->hasMany('App\Models\Products','subCategory_id');
     }
 }

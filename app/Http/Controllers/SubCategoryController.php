@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubCategoryReq;
 use App\Models\SubCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
@@ -12,9 +14,11 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $subCategories=$category->subCategories;
+        return view('admin.subcategory.show',compact('subCategories','id'));
     }
 
     /**
@@ -22,9 +26,9 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return view('admin.subcategory.create',compact('id'));
     }
 
     /**
@@ -33,9 +37,15 @@ class SubCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SubCategoryReq $request,$id)
     {
-        //
+        $subCategory = SubCategory::create([
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'category_id'=>$id,
+            //photo
+        ]);
+        return redirect()->route('sub-category-show',[$id]);
     }
 
     /**
