@@ -7,9 +7,11 @@ use App\Models\Category;
 use App\Models\Products;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use App\Traits\ImgTrait;
 
 class ProductsController extends Controller
 {
+    use ImgTrait;
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +44,7 @@ class ProductsController extends Controller
     {
         $subcategory = SubCategory::findOrFail($id);
         $category_id = $subcategory->category['id'];
-        //dd($category_id);
+        $photo_name = $this->saveImg($request->photo,'images/products');
 
         $product = Products::create([
             'name'=>$request->name,
@@ -52,6 +54,7 @@ class ProductsController extends Controller
             'stock'=>$request->stock,
             'category_id'=>$category_id,
             'subCategory_id'=>$id,
+            'image'=>$photo_name,
         ]);
         return redirect()->route('product-show',[$id]);
     }
@@ -62,9 +65,10 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $products)
+    public function show($id)
     {
-        //
+        $product =Products::findOrFail($id);
+        return view('admin.product.showDetail',compact('product'));
     }
 
     /**
@@ -73,9 +77,10 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $products)
+    public function edit($id)
     {
-        //
+        $product =Products::findOrFail($id);
+        return view('admin.product.edit',compact('product'));
     }
 
     /**
@@ -85,9 +90,21 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
+    public function update(ProductReq $request, $id)
     {
-        //
+        $img_name = $this->saveImg($request->photo, 'images/products');
+        $product = Products::findOrFail($id);
+        $product ->update([
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'purchase_price'=>$request->purchase_price,
+            'sale_price'=>$request->sale_price,
+            'stock'=>$request->stock,
+            'image'=>$img_name,
+        ]);
+        //$product->update($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -96,8 +113,10 @@ class ProductsController extends Controller
      * @param  \App\Models\Products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy($id)
     {
-        //
+        $product =Products::findOrFail($id);
+        $product->delete();
+        return redirect()->back();
     }
 }

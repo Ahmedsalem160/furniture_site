@@ -38,18 +38,25 @@
                                     <th class="wd-15p border-bottom-0">sale_Price</th>
                                     <th class="wd-10p border-bottom-0">quantity</th>
                                     <th class="wd-25p border-bottom-0">img</th>
+                                    <th class="wd-25p border-bottom-0">operations</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @foreach($products as $product)
                                     <tr>
-                                        <td>{{$product->name}}</td>
-                                        <td>{{$product->description}}</td>
-                                        <td>${{$product->purchase_price}}</td>
-                                        <td>${{$product->sale_price}}</td>
-                                        <td>{{$product->stock}}</td>
-                                        <td>image</td>
+                                        <td style="text-align: center; vertical-align: middle;">{{$product->name}}</td>
+                                        <td style="text-align: center; vertical-align: middle;">{{$product->description}}</td>
+                                        <td style="text-align: center; vertical-align: middle;">${{$product->purchase_price}}</td>
+                                        <td style="text-align: center; vertical-align: middle;">${{$product->sale_price}}</td>
+                                        <td style="text-align: center; vertical-align: middle;">{{$product->stock}}</td>
+                                        <td>
+                                            <img src="{{asset('images/products/'.$product->image)}}" alt="{{$product->name}}">
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <a style="margin-bottom: 5px" href="{{route('product-edit',[$product->id])}}" class='btn btn-primary btn-with-icon '><i class="typcn typcn-edit"></i></a>
+                                            <a href="{{route('product-delete',[$product->id])}}" class='btn btn-danger btn-with-icon '><i class="typcn typcn-delete"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

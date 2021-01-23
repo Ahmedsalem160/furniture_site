@@ -39,7 +39,7 @@
                                         <td>PHOTO</td>
                                     </tr>
                                 @endforeach
-{{--                                <p>No Sub-Categories yet!</p>--}}
+
                             </tbody>
                         </table>
                     </div>

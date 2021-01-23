@@ -47,5 +47,8 @@ Route::group(['prefix'=>'products'],function () {
     Route::get('/create/{id}',[ProductsController::class,'create'])->name('product-create');
     Route::post('/created/{id}',[ProductsController::class,'store'])->name('product-save');
     Route::get('/show/{id}',[ProductsController::class,'index'])->name('product-show');
-
+    Route::get('/edit/{id}',[ProductsController::class,'edit'])->name('product-edit');
+    Route::post('/updated/{id}',[ProductsController::class,'update'])->name('product-update');
+    Route::get('/delete/{id}',[ProductsController::class,'destroy'])->name('product-delete');
+    //Route::get('/show/{id}',[ProductsController::class,'show'])->name('product-detail');
 });
