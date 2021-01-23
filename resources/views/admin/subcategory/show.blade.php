@@ -23,20 +23,27 @@
                         <table class="table table-hover mb-0 text-md-nowrap">
                             <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>sub_Category</th>
-                                <th>PHOTO</th>
+                                <th style="text-align: center; vertical-align: middle;">ID</th>
+                                <th style="text-align: center; vertical-align: middle;">Name</th>
+                                <th style="text-align: center; vertical-align: middle;">Products</th>
+                                <th style="text-align: center; vertical-align: middle;">PHOTO</th>
+                                <th style="text-align: center; vertical-align: middle;">Operation</th>
                             </tr>
                             </thead>
                             <tbody>
 
                                 @foreach ($subCategories as $subcategory)
                                     <tr>
-                                        <th scope="row">{{$subcategory->id}}</th>
-                                        <td>{{$subcategory->name}}</td>
-                                        <td><a href="{{route('product-show',[$subcategory->id])}}" class="btn btn-primary">products</a></td>
-                                        <td>PHOTO</td>
+                                        <th scope="row" style="text-align: center; vertical-align: middle;">{{$subcategory->id}}</th>
+                                        <td style="text-align: center; vertical-align: middle;">{{$subcategory->name}}</td>
+                                        <td style="text-align: center; vertical-align: middle;"><a href="{{route('product-show',[$subcategory->id])}}" class="btn btn-primary">products</a></td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <img style="height: 150px;width: 400px" src="{{asset('images/sub-category/'.$subcategory->photo)}}" alt="{{$subcategory->name}}">
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <a style="margin-bottom: 5px" href="{{route('sub-category-edit',[$subcategory->id])}}" class='btn btn-primary btn-with-icon '><i class="typcn typcn-edit"></i></a>
+                                            <a href="{{route('sub-category-delete',[$subcategory->id])}}" class='btn btn-danger btn-with-icon '><i class="typcn typcn-delete"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
 

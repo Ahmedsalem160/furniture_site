@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SubCategoryReq;
 use App\Models\SubCategory;
 use App\Models\Category;
+use App\Traits\ImgTrait;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
+    use ImgTrait;
     /**
      * Display a listing of the resource.
      *
@@ -39,11 +41,12 @@ class SubCategoryController extends Controller
      */
     public function store(SubCategoryReq $request,$id)
     {
+        $img_name = $this->saveImg($request->photo,'images/sub-category');
         $subCategory = SubCategory::create([
             'name'=>$request->name,
             'description'=>$request->description,
             'category_id'=>$id,
-            //photo
+            'photo'=>$img_name,
         ]);
         return redirect()->route('sub-category-show',[$id]);
     }
@@ -65,9 +68,10 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(SubCategory $subCategory)
+    public function edit($id)
     {
-        //
+        $subCategory = SubCategory::findOrFail($id);
+        return view('admin.subcategory.edit',compact('subCategory'));
     }
 
     /**
@@ -77,9 +81,16 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(SubCategoryReq $request, $id)
     {
-        //
+        $subCategory =SubCategory::findOrFail($id);
+        $img_name = $this->saveImg($request->photo,'images/sub-category');
+        $subCategory ->update([
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'photo'=>$img_name,
+        ]);
+        return redirect()->route('sub-category-edit',[$id]);
     }
 
     /**
@@ -88,8 +99,10 @@ class SubCategoryController extends Controller
      * @param  \App\Models\SubCategory  $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SubCategory $subCategory)
+    public function destroy($id)
     {
-        //
+        $subCategory =SubCategory::findOrFail($id);
+        $subCategory->delete();
+        return redirect()->back();
     }
 }

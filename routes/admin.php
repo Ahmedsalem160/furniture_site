@@ -30,6 +30,9 @@ Route::group(['prefix'=>'category'],function () {
     Route::get('/create',[CategoryController::class,'create'])->name('category-create');
     Route::post('/create',[CategoryController::class,'store'])->name('category-save');
     Route::get('/show',[CategoryController::class,'index'])->name('category-show');
+    Route::get('/edit/{id}',[CategoryController::class,'edit'])->name('category-edit');
+    Route::post('/updated/{id}',[CategoryController::class,'update'])->name('category-update');
+    Route::get('/delete/{id}',[CategoryController::class,'destroy'])->name('category-delete');
 
 });
 
@@ -38,6 +41,9 @@ Route::group(['prefix'=>'subcategory'],function () {
     Route::get('/create/{id}',[SubCategoryController::class,'create'])->name('sub-category-create');
     Route::post('/created/{id}',[SubCategoryController::class,'store'])->name('sub-category-save');
     Route::get('/show/{id}',[SubCategoryController::class,'index'])->name('sub-category-show');
+    Route::get('/edit/{id}',[SubCategoryController::class,'edit'])->name('sub-category-edit');
+    Route::post('/update/{id}',[SubCategoryController::class,'update'])->name('sub-category-update');
+    Route::get('/delete/{id}',[SubCategoryController::class,'destroy'])->name('sub-category-delete');
 
 });
 
@@ -50,5 +56,5 @@ Route::group(['prefix'=>'products'],function () {
     Route::get('/edit/{id}',[ProductsController::class,'edit'])->name('product-edit');
     Route::post('/updated/{id}',[ProductsController::class,'update'])->name('product-update');
     Route::get('/delete/{id}',[ProductsController::class,'destroy'])->name('product-delete');
-    //Route::get('/show/{id}',[ProductsController::class,'show'])->name('product-detail');
+
 });

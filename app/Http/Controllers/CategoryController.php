@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Traits\ImgTrait;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryReq;
 
 class CategoryController extends Controller
 {
+    use ImgTrait;
     /**
      * Display a listing of the resource.
      *
@@ -37,10 +39,11 @@ class CategoryController extends Controller
      */
     public function store(CategoryReq $request)
     {
+        $img_name = $this->saveImg($request->photo,'images/category');
         $category = new Category();
         $category->name =$request->input('name');
         $category->description =$request->input('description');
-        //photo
+        $category->photo =$img_name;
         $category->save();
         return redirect()->route('category-show');
     }
@@ -62,9 +65,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -74,9 +78,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryReq $request, $id)
     {
-        //
+        $img_name = $this->saveImg($request->photo,'images/category');
+
+        $category =Category::findOrFail($id);
+        $category->update([
+            'name'=>$request->name,
+            'description'=>$request->description,
+            'photo'=>$img_name,
+        ]);
+
+        return redirect()->route('category-edit',[$id]);
     }
 
     /**
@@ -85,8 +98,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category =Category::findOrFail($id);
+        $category->delete();
+        return redirect()->route('category-show');
     }
 }
