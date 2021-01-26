@@ -12,6 +12,12 @@ use App\Traits\ImgTrait;
 class ProductsController extends Controller
 {
     use ImgTrait;
+
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *

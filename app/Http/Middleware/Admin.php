@@ -15,12 +15,12 @@ class Admin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+  /*  public function handle(Request $request, Closure $next)
     {
-        dd($request);
-//        if (auth::guard('auth:admin')->attempt(['email'=>$request->input('email'), 'password'=>$request->input('password')]))
+//        dd($request->input('password'));
+//        if (auth()->guard('admin')->attempt(['email'=>$request->input('email'), 'password'=>$request->input('password')]))
 //        {
-//
+//            dd($request->input('email'));
 //        }
-    }
+    }*/
 }

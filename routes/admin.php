@@ -20,11 +20,13 @@ use App\Http\Controllers\ProductsController;
 
 //Route::view('/product','admin.product.create');
 
-Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
+//Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
 
 
-Route::get('/login','App\Http\Controllers\AdminController@login')->name('getAdminLogin');
+Route::get('/login','App\Http\Controllers\AdminController@login')->name('getAdminLogin')->middleware('guest:admin');
 Route::post('/logged','App\Http\Controllers\AdminController@logged')->name('adminLogin');
+
+
 ############Category-CRUD#################
 Route::group(['prefix'=>'category'],function () {
     Route::get('/create',[CategoryController::class,'create'])->name('category-create');
@@ -58,3 +60,5 @@ Route::group(['prefix'=>'products'],function () {
     Route::get('/delete/{id}',[ProductsController::class,'destroy'])->name('product-delete');
 
 });
+
+//Route::get('/{page}', 'App\Http\Controllers\AdminController@index');

@@ -15,18 +15,16 @@ define('PAGINATION_COUNT','9');
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
 
-//Route::view('/product','admin.product.create');
-
-//Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
+Route::view('/test/index','admin.index');
 
 
 
-//
-Route::view('/index','site.list');
+Route::get('/{page}', 'App\Http\Controllers\AdminController@index');
+
+
+
+//Route::view('/index','site.list')->name('login');
 Route::view('/home','site.home');
 Route::view('/about','site.about');
 Route::view('/contact','site.contact');

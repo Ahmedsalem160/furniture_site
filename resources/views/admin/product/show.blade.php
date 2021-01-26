@@ -10,11 +10,9 @@
 @endsection
 @section('content')
     @include('admin.includes.breadcrumb',['var'=>'Show All Products','link'=>'
-<form action="{{route(\'product-create\',[$id])}}">
-         <input type=\'submit\' class=\'btn btn-success btn-with-icon btn-block\' value=\'Add New Product\'/>
-</form>
+         <a  href="/admin/products/create/'.$id.'" class="btn btn-success btn-with-icon btn-block" >Add New Product</a>
 '])
-    <a href="{{route("product-create",[$id])}}" class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-document-add"></i>Add New Product</a>
+
     <!-- row opened -->
     <div class="row row-sm">
         <!--div-->
@@ -63,6 +61,7 @@
                         </table>
                     </div>
                 </div>
+                <a href="{{route("product-create",[$id])}}" class="btn btn-success btn-with-icon btn-block"><i class="typcn typcn-document-add"></i>Add New Product</a>
             </div>
         </div>
         <!--/div-->

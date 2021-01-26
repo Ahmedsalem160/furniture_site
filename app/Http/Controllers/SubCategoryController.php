@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 class SubCategoryController extends Controller
 {
     use ImgTrait;
+
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     /**
      * Display a listing of the resource.
      *

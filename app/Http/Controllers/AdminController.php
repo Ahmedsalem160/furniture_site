@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Requests\AdminLogin;
 use Illuminate\Support\Facades\Auth;
@@ -13,17 +14,9 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        if(view()->exists($id)){
-            return view($id);
-        }
-        else
-        {
-            return view('404');
-        }
 
-     //   return view($id);
     }
 
     /**
@@ -36,15 +29,18 @@ class AdminController extends Controller
         return view('admin.auth.login');
     }
 
-    public function logged(AdminLogin $request)
+    public function logged(Request $request)
     {
-        $pass = $request->input('password');$email=$request->input('email');
-        if (Auth::guard('admin')->attempt(['email'=>$email, 'password'=>$pass])){
+
+        $pass = $request->input("password");$email=$request->input('email');
+
+        if (\Illuminate\Support\Facades\Auth::guard('admin')->attempt(['email'=>$email, 'password'=>$pass])){
 
            return redirect()->route('category-create');
+           // return redirect()->intended('admin/index');
         }
 
-        return redirect()->back()->withInput($request->only('email'));
+      return redirect()->back()->withInput($request->only('email'));
     }
 
     /**

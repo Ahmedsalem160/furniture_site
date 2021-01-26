@@ -3,7 +3,7 @@
 @section('content')
 
     @include('admin.includes.breadcrumb',['var'=>'Show-All-Sub-Categories','link'=>'
-        <a href="{{route(\'sub-category-create\',[$id])}}" class="btn btn-primary">Add More Sub_Categories</a>
+        <a href="/admin/subcategory/create/'.$id.'" class="btn btn-primary">Add More Sub_Categories</a>
 '])
 
     <!-- row opened -->
