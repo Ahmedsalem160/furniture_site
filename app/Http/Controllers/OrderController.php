@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -14,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders=Order::all();
+        return view('admin.users.orders',compact('orders'));
     }
 
     /**
@@ -35,7 +37,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        //user_id, product(name, price, quantity), Total_price, time
     }
 
     /**
@@ -44,9 +47,9 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show()
     {
-        //
+
     }
 
     /**

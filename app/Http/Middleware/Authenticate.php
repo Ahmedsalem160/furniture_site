@@ -22,7 +22,7 @@ class Authenticate extends Middleware
             if (Request::is('admin/*'))
                 return route('getAdminLogin');
             else
-                return route('login');
+                return route('get.front.login');
 
 
         }

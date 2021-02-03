@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\OrderController;
 
 //define('PAGINATION_COUNT','9');
 
@@ -58,6 +59,14 @@ Route::group(['prefix'=>'products'],function () {
     Route::get('/edit/{id}',[ProductsController::class,'edit'])->name('product-edit');
     Route::post('/updated/{id}',[ProductsController::class,'update'])->name('product-update');
     Route::get('/delete/{id}',[ProductsController::class,'destroy'])->name('product-delete');
+
+});
+
+############Orders-CRUD#################
+Route::group(['prefix'=>'orders'],function (){
+    Route::get('/show',[OrderController::class,'index'])->name('order-show');
+    Route::get('/Detail',[OrderController::class,'show'])->name('order-detail');
+
 
 });
 
